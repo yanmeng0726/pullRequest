@@ -26,3 +26,4 @@ jobs:
         npm run test
       env:
         CI: true
+        TOKEN: ${{ env.TOKEN }}
