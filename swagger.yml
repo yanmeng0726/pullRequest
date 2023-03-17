@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: Pull Request API
+  description: count number of closed and opened PR for certain month
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description:  Use this when running locally in dev or docker mode.
+tags:
+- name: Pull Request
+  description: pull request
+
+
+paths:
+  /pr:
+    get:
+      summary: get PR opened number and PR closed number for specific month.
+      tags:
+      - Pull Request
+      parameters:
+        - in: query
+          name: month
+          schema:
+            type: string
+          required: true
+          description: month 
+          example: 2023-1
+      responses:
+        '200':    # status code
+          description: A PR response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/PResponse"
+    
+
+
+
+components:
+  schemas:
+    PResponse:
+      type: object
+      description: A single response from endpoint
+      required:
+      - open
+      - close
+      properties:
+        open:
+          type: number
+          readOnly: true
+          example: 7
+          title: open
+          description: total number of open PR for certain month
+        close:
+          type: number
+          readOnly: true
+          example: 2
+          title: close
+          description: total number of closed PR for certain month
+    
