@@ -6,7 +6,8 @@ Downshift PR is a Restful API based on node.js and tyepscript for dealing with p
 
   The quickest way to get started to start the server as shown below:
 
-   Add Personal Access Token to environment file, [How To Generate a personal access token for github ](/https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+   Add Personal Access Token to environment file.
+   [How To Generate a personal access token for github ](/https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 ```console
     replace TOKEN in .env file with your personal github token 
 ```
