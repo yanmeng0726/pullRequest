@@ -49,7 +49,6 @@ export const register = (app: express.Application) => {
 
       res.status(200).send(result);
     } catch (error) {
-      console.dir(error)
       switch (Number(error.status)) {
         case 401:
           res.status(401).json({ message: `Unauthorized Error` });
