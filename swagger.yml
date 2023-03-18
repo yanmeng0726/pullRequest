@@ -24,7 +24,7 @@ paths:
             type: string
           required: true
           description: month 
-          example: 2023-1
+          example: 2023-01
       responses:
         '200':    # status code
           description: A PR response

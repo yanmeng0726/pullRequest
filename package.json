@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/index.js",
-    "serve": "npm run build && npm run start",
+    "serve": "npm run build && node dist/index.js",
     "prettier": "prettier --config .prettierrc 'src/**/*' --write",
     "test": "NODE_ENV=test jest --coverage --testTimeout=5000"
   },
