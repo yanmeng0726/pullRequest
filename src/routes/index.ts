@@ -7,6 +7,8 @@ export const register = (app: express.Application) => {
     try {
 
       const date = req.query.month;
+
+      //month need to be 2 digital, otherwise octokit will throw error
       const re = /([12]\d{3}-(0[1-9]|1[0-2])$)/
       if (!re.test(date)) {
         return res.status(400).send({ error: 'Invalid month' });
@@ -15,6 +17,7 @@ export const register = (app: express.Application) => {
       let [year, month] = date.split('-');
       const startDate: string = year + '-' + month + '-01';
 
+      // get first day of next month, then minus 1 day to get the last day of the month
       let nextMonth: string;
       if (month === '12') {
         year = (Number(year) + 1).toString();
