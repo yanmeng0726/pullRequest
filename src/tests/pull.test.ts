@@ -46,6 +46,8 @@ describe('GET /pr', () => {
     expect(res.statusCode).toBe(400);
     res = await request(app).get('/pr');
     expect(res.statusCode).toBe(400);
+    res = await request(app).get('/pr?month=2022=1');
+    expect(res.statusCode).toBe(400);
   });
 
   it('should return internal error', async () => {

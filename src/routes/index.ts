@@ -7,7 +7,7 @@ export const register = (app: express.Application) => {
     try {
 
       const date = req.query.month;
-      const re: RegExp = new RegExp('([12]\d{3}-(0[1-9]|1[0-2])$)');
+      const re = /([12]\d{3}-(0[1-9]|1[0-2])$)/
       if (!re.test(date)) {
         return res.status(400).send({ error: 'Invalid month' });
       }
