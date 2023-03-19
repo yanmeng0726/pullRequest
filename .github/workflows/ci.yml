@@ -4,18 +4,17 @@ on:
   push:
     branches:
       - main
-env:
-  env_var: ${{ vars.SHUHENG }}
 
 jobs:
   test:
 
     runs-on: ubuntu-latest
+    environment: build
 
     strategy:
       matrix:
         node-version: [19.x]
-
+  
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -24,6 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install and test
       run: |
+        echo "this is secrets ${{secrets.TOKEN1}}"
         npm install
         npm run test
       env:
