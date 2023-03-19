@@ -21,7 +21,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: npm install and test
-      run: echo "token is ${{ vars.TOKEN }}, token1 is ${{ secrets.TOKEN1 }}"
+      run: |
+            npm install
+            npm run test
       env:
         CI: true
-        TOKEN: ${{ vars.TOKEN }}
+        TOKEN: ${{ env.TOKEN }}
