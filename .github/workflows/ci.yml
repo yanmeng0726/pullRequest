@@ -13,7 +13,9 @@ jobs:
     - uses: actions/checkout@v2
       
     - name: Buid the application
-      run: npm run build
+      run: |
+        npm install
+        npm run build
     
   test:
 
@@ -29,10 +31,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install and test
-      run: |
-        npm install
-        npm run test
+    - name: npm test
+      run: npm run test
       env:
         CI: true
         TOKEN: ${{ env.TOKEN }}
