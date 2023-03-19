@@ -1,8 +1,12 @@
 # Downshift PR
 
 Downshift PR is a Restful API based on node.js and tyepscript for dealing with pr data.
-This api can display pull request information for the repo, such like downshift GitHub repository (https://github.com/downshift-js/downshift). The API should expose a single endpoint which will return, summarized by month:
+This api can display pull request information for the repo, such like downshift GitHub repository (https://github.com/downshift-js/downshift). 
+
+The API can expose a single endpoint which will return, summarized by month:
+
     1. The total number of pull requests which were opened in that month.
+    
     2. The total number of pull requests which were closed in that month.
 
 ## Quick Start
