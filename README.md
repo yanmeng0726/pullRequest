@@ -15,6 +15,9 @@ Create .env file and add below variable:
 REPO=downshift
 ```
 ```console
+OWNER=downshift-js
+```
+```console
 SERVER_PORT=8080
 ```
 ```console
