@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-
+env:
+  SHUHENG: SHUHENG
 jobs:
   test:
 
@@ -24,6 +25,8 @@ jobs:
     - name: npm install and test
       run: |
         echo "this is secrets ${{secrets.TOKEN1}}"
+        echo "this is SHuheng from env ${{ env.SHUHENG }}"
+        echo "this is shuheng from yml $SHUHENG "
         npm install
         npm run test
       env:
