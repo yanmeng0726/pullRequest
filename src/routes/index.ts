@@ -7,6 +7,9 @@ import validateDate from '../utils/validateDate';
 export const register = (app: express.Application) => {
   app.get('/pr', async (req: any, res) => {
     try {
+      if (!req.headers.authorization) {
+        return res.status(403).json({ error: 'No token sent!' });
+      }
       const date = req.query.month;
 
       if (!validateDate(date)) {
@@ -15,7 +18,8 @@ export const register = (app: express.Application) => {
 
       const [startDate, endDate] = calculateLastDayOfMonth(date);
 
-      const token: string = process.env.TOKEN;
+      const token: string = req.headers.authorization;
+
       const octokit: Octokit = new Octokit({
         auth: `${token}`
       });

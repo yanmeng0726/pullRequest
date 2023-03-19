@@ -12,7 +12,7 @@ This api can display pull request information for the downshift GitHub repositor
    Add Personal Access Token to environment file.
    [How To Generate a personal access token for github ](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 ```console
-    replace TOKEN in .env file with your personal github token 
+    Generate your personal github token and set it in the request header 
 ```
 
   Install dependencies:
