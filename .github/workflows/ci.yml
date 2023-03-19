@@ -25,12 +25,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install and test
       run: |
-        echo "this is secrets ${{secrets.TOKEN1}}"
-        echo "this is SHuheng from env ${{ env.SHUHENG }}"
-        echo "this is shuheng from yml $SHUHENG "
-        echo " this is Li ${LI}"
         npm install
         npm run test
       env:
         CI: true
-        TOKEN: ${{ secrets.TOKEN1 }}
+        TOKEN: ${{ secrets.TOKEN}}
