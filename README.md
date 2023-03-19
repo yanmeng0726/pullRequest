@@ -27,12 +27,12 @@ $ npm install
 $ npm run serve
 ```
 
- Ther default server will run at: http://localhost:8080
+ The default server will run at: http://localhost:8080
 
 ## Usage
   [Please check the endpoint in swagger.yml](swagger.yml)
   
-  Hit http://localhost:8080/pr?month={yyyy-mm} endpoint to check results.
+  After start the default server, please hit http://localhost:8080/pr?month={yyyy-mm} endpoint to check results.
 
 
 ## Contributing
