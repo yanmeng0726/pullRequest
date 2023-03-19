@@ -14,6 +14,7 @@ beforeEach(async () => {
 });
 
 describe('GET /pr', () => {
+  console.dir(`${process.env.TOKEN}`);
   it('should return forbidden error if no token is setting', async () => {
     let res = await request(app).get('/pr?month=2022');
     expect(res.statusCode).toBe(403);
