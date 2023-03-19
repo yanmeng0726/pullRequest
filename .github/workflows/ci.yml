@@ -6,17 +6,6 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v2
-      
-    - name: Buid the application
-      run: |
-        npm install
-        npm run build
-    
   test:
 
     runs-on: ubuntu-latest
