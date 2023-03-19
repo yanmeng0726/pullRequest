@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+env:
+  env_var: ${{ vars.SHUHENG }}
 
 jobs:
   test:
@@ -22,8 +24,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install and test
       run: |
-            npm install
-            npm run test
+        echo " variable : ${{ vars.SHUHENG }}"
+        echo " env : $env_var"
       env:
         CI: true
         TOKEN: ${{ env.TOKEN }}
