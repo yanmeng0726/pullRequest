@@ -1,7 +1,7 @@
 # Downshift PR
 
 Downshift PR is a Restful API based on node.js and tyepscript for dealing with pr data.
-This api can display pull request information for the downshift GitHub repository (https://github.com/downshift-js/downshift). The API should expose a single endpoint which will return, summarized by month:
+This api can display pull request information for the repo, such like downshift GitHub repository (https://github.com/downshift-js/downshift). The API should expose a single endpoint which will return, summarized by month:
     1. The total number of pull requests which were opened in that month.
     2. The total number of pull requests which were closed in that month.
 
@@ -9,12 +9,17 @@ This api can display pull request information for the downshift GitHub repositor
 
   The quickest way to get started to start the server as shown below:
 
-   Add Personal Access Token to environment file.
-   [How To Generate a personal access token for github ](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+   
+Create .env file and add below variable:
 ```console
-    Generate your personal github token and set it in the request header 
+REPO=downshift
 ```
-
+```console
+SERVER_PORT=8080
+```
+```console
+NODE_ENV=development
+```
   Install dependencies:
 
 ```console
@@ -32,7 +37,12 @@ $ npm run serve
 ## Usage
   [Please check the endpoint in swagger.yml](swagger.yml)
   
-  After start the default server, please hit http://localhost:8080/pr?month={yyyy-mm} endpoint to check results.
+  After start the default server, generate your personal github token and set it in the request header  [How To Generate a personal access token for github ](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+
+Please send request to http://localhost:8080/pr?month={yyyy-mm} endpoint to check results.
+
+
 
 
 ## Contributing
