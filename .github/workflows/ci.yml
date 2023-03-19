@@ -6,6 +6,15 @@ on:
       - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Buid the application
+      run: npm run build
+    
   test:
 
     runs-on: ubuntu-latest
@@ -27,3 +36,5 @@ jobs:
       env:
         CI: true
         TOKEN: ${{ env.TOKEN }}
+  
+          '

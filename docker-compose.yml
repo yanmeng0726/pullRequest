@@ -1,0 +1,19 @@
+version: "3.4"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/home/node/app/src
+      - ./nodemon.json:/home/node/app/nodemon.json
+    ports:
+      - 8080:8080
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - SERVER_PORT=${SERVER_PORT}
+      - TOKEN=${TOKEN}
+      - OWNER=${OWNER}
+      - REPO=${REPO}
+    command: npm run serve
