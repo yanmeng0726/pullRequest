@@ -16,19 +16,6 @@ The API also has endpoint to get PR for a date range
   The quickest way to get started to start the server as shown below:
 
    
-Create .env file and add below variable:
-```console
-REPO=downshift
-```
-```console
-OWNER=downshift-js
-```
-```console
-SERVER_PORT=8080
-```
-```console
-NODE_ENV=development
-```
   Install dependencies:
 
 ```console
