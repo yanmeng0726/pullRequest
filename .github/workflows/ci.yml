@@ -29,4 +29,4 @@ jobs:
         npm run test
       env:
         CI: true
-        TOKEN: ${{ secrets.TEST_TOKEN}}
+        TOKEN: ${{ secrets.TOKEN}}
