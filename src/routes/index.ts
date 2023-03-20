@@ -3,8 +3,7 @@ import { Octokit } from '@octokit/rest';
 import { PullResponse} from '../interfaces/types';
 import {
   getFirstAndLastDayOfMonth,
-  calculateNextMonth,
-  filterPrsByStatus,
+  filterByStatus,
   initializeResultArr
 } from '../services/monthService';
 import validateDate from '../utils/validateDate';
@@ -99,8 +98,8 @@ export const register = (app: express.Application) => {
         q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+closed:${startMonthStartDate}..${endMonthEndDate}`
       });
 
-      filterPrsByStatus(allOpenPrs, true, resultObj);
-      filterPrsByStatus(allClosePrs, false, resultObj);
+      filterByStatus(allOpenPrs, true, resultObj);
+      filterByStatus(allClosePrs, false, resultObj);
 
       res.status(200).send(resultObj);
     } catch (error) {

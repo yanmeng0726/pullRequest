@@ -82,7 +82,7 @@ function initializeResultArrFunc(
   while (new Date(currentMonth) <= new Date(endMonthEndDate)) {
     let [year, month] = currentMonth.split('-');
     resultObj[currentMonth] = { open: 0, close: 0 };
-    const nextDate = calculateNextMonth(month, year);
+    const nextDate = calculateNextMonthFunc(month, year);
     const nextYear = nextDate.year;
     const nextMonth = nextDate.month;
     currentMonth = nextYear + '-' + nextMonth;
@@ -90,7 +90,7 @@ function initializeResultArrFunc(
 }
 
 const getFirstAndLastDayOfMonth: calculateDate = calculateDateFunc;
-const calculateNextMonth: calculateNextMonth = calculateNextMonthFunc;
-const filterPrsByStatus: filterPrsByStatus = filterPrsByStatusFunc;
+const getNextMonth: calculateNextMonth = calculateNextMonthFunc;
+const filterByStatus: filterPrsByStatus = filterPrsByStatusFunc;
 const initializeResultArr = initializeResultArrFunc;
-export { getFirstAndLastDayOfMonth, calculateNextMonth, filterPrsByStatus, initializeResultArr };
+export { getFirstAndLastDayOfMonth, getNextMonth, filterByStatus, initializeResultArr };
