@@ -10,6 +10,8 @@ The API has endpoint which will return, summarized by month:
     2. The total number of pull requests which were closed in that month.
 
 The API also has endpoint to get PR for a date range
+      1. The total number of pull requests which were opened in every month.
+      2. The total number of pull requests which were closed in every month.
 
 ## Quick Start
 
@@ -43,9 +45,9 @@ $ make up
   After start the default server, generate your personal github token and set it in the request header  [How To Generate a personal access token for github ](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
 
-Please send request to http://localhost:8080/pr?month={yyyy-mm} endpoint to check pr info for a single month.
+Please send request to http://localhost:8080/pullRequestCount?month={yyyy-mm} endpoint to check pr info for a single month.
 
-Please send request to http://localhost:8080/pr?startMonth={yyyy-mm}&&endMonth={yyyy-mm} endpoint to check pr infos for a date range.
+Please send request to http://localhost:8080/pullRequestCounts?startMonth={yyyy-mm}&&endMonth={yyyy-mm} endpoint to check pr infos for a date range.
 
 
 ## Test
