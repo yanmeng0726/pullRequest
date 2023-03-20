@@ -55,23 +55,19 @@ paths:
           example: 2022-06
       responses:
         '200':    # status code
-          description: A PR array response
+          description: A PR object response
           content:
             application/json:
               schema: 
-                 type: array
-                 items:
-                  $ref: "#/components/schemas/PResponseObj"
-                 example:
-                  - month: 2022-01
-                    open: 2
-                    close: 7
-                  - month: 2022-02
-                    open: 3
-                    close: 5
-                  - month: 2022-03
-                    open: 4
-                    close: 0
+                 type: 'object'
+                 properties:
+                    "2022-02": 
+                      $ref: "#/components/schemas/PResponse"
+                    "2022-03": 
+                      $ref: "#/components/schemas/PResponse"
+                    "2022-04": 
+                      $ref: "#/components/schemas/PResponse"
+
     
 
 
@@ -79,25 +75,6 @@ paths:
 components:
   schemas:
     PResponse:
-      type: object
-      description: A single response from endpoint
-      required:
-      - open
-      - close
-      properties:
-        open:
-          type: number
-          readOnly: true
-          example: 7
-          title: open
-          description: total number of open PR for certain month
-        close:
-          type: number
-          readOnly: true
-          example: 2
-          title: close
-          description: total number of closed PR for certain month
-    PResponseObj:
       type: object
       description: A single response from endpoint
       required:

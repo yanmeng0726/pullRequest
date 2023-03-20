@@ -3,13 +3,16 @@ export interface PullResponse {
   close: number;
 }
 
-export interface PullResponseArrayObj {
-  month: string;
-  open: number;
-  close: number;
-}
 export interface calculateDate {
-  (date: string): string[];
+  (date: string): DatePair;
+}
+
+export interface calculateNextMonth {
+  (month: string, year: string): MonthPair;
+}
+
+export interface filterPrsByStatus {
+  (prsArr: any, open: boolean, resultArr: any): void;
 }
 
 export interface validateDate {
@@ -17,6 +20,11 @@ export interface validateDate {
 }
 
 export interface DatePair {
+  firstDay: string;
+  lastDay: string;
+}
+
+export interface MonthPair {
   month: string;
   year: string;
 }

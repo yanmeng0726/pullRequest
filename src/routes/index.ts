@@ -1,9 +1,11 @@
 import * as express from 'express';
 import { Octokit } from '@octokit/rest';
-import { PullResponse, PullResponseArrayObj } from '../interfaces/types';
+import { PullResponse} from '../interfaces/types';
 import {
-  calculateLastDayOfMonth,
-  calculateNextMonth
+  getFirstAndLastDayOfMonth,
+  calculateNextMonth,
+  filterPrsByStatus,
+  initializeResultArr
 } from '../services/monthService';
 import validateDate from '../utils/validateDate';
 
@@ -25,7 +27,8 @@ export const register = (app: express.Application) => {
         return res.status(400).send({ error: 'Invalid month' });
       }
 
-      const [startDate, endDate] = calculateLastDayOfMonth(date);
+      const startDate = getFirstAndLastDayOfMonth(date).firstDay;
+      const endDate = getFirstAndLastDayOfMonth(date).lastDay;
 
       const token: string = req.headers.authorization;
 
@@ -58,8 +61,6 @@ export const register = (app: express.Application) => {
     }
   });
 
-
-  
   /**
    * GET /pullRequestCounts
    * @query startMonth = YYYY-MM endMonth = YYYY-MM
@@ -72,7 +73,7 @@ export const register = (app: express.Application) => {
         return res.status(401).json({ error: 'No token sent!' });
       }
 
-      const prArr: PullResponseArrayObj[] = [];
+      const resultObj: any = {};
       const startMonth = req.query.startMonth;
       const endMonth = req.query.endMonth;
       const token: string = req.headers.authorization;
@@ -85,31 +86,23 @@ export const register = (app: express.Application) => {
         auth: `${token}`
       });
 
-      let currentMonth: string = startMonth;
+      const startMonthStartDate = getFirstAndLastDayOfMonth(startMonth).firstDay;
+      const endMonthEndDate = getFirstAndLastDayOfMonth(endMonth).lastDay;
 
-      while (new Date(currentMonth) <= new Date(endMonth)) {
-        let [year, month] = currentMonth.split('-');
-        const [startDate, endDate] = calculateLastDayOfMonth(currentMonth);
-        const openPrs = await octokit.rest.search.issuesAndPullRequests({
-          q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+created:${startDate}..${endDate}`
-        });
-        const closePrs = await octokit.rest.search.issuesAndPullRequests({
-          q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+closed:${startDate}..${endDate}`
-        });
+      initializeResultArr(startMonth, endMonthEndDate, resultObj);
 
-        const pullRequest: PullResponseArrayObj = {
-          month: currentMonth,
-          open: openPrs.data.total_count,
-          close: closePrs.data.total_count
-        };
-        prArr.push(pullRequest);
-        const nextDate = calculateNextMonth(month, year);
-        const nextYear = nextDate.year;
-        const nextMonth = nextDate.month;
-        currentMonth = nextYear + '-' + nextMonth;
-      }
+      const allOpenPrs = await octokit.rest.search.issuesAndPullRequests({
+        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+created:${startMonthStartDate}..${endMonthEndDate}`
+      });
 
-      res.status(200).send(prArr);
+      const allClosePrs = await octokit.rest.search.issuesAndPullRequests({
+        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+closed:${startMonthStartDate}..${endMonthEndDate}`
+      });
+
+      filterPrsByStatus(allOpenPrs, true, resultObj);
+      filterPrsByStatus(allClosePrs, false, resultObj);
+
+      res.status(200).send(resultObj);
     } catch (error) {
       switch (Number(error.status)) {
         case 401:

@@ -30,6 +30,13 @@ $ npm run serve
 
  The default server will run at: http://localhost:8080
 
+## Docker Start
+
+```console
+$ make up
+```
+ The default server will run at: http://localhost:8080 in backend
+ 
 ## Usage
   [Please check the endpoints in swagger.yml](swagger.yml)
   

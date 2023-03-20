@@ -61,9 +61,7 @@ describe('GET /pullRequestCount', () => {
       .get('/pullRequestCount?month=2022')
       .set('Authorization', `${process.env.TOKEN}`);
     expect(res.statusCode).toBe(400);
-    res = await request(app)
-      .get('/pullRequestCount')
-      .set('Authorization', `${process.env.TOKEN}`);
+    res = await request(app).get('/pullRequestCount').set('Authorization', `${process.env.TOKEN}`);
     expect(res.statusCode).toBe(400);
     res = await request(app)
       .get('/pullRequestCount?month=2022=1')
@@ -94,19 +92,27 @@ describe('GET /pullRequestCount', () => {
 
 describe('GET /pullRequestCounts', () => {
   it('should return forbidden error if no token is setting', async () => {
-    let res = await request(app).get(
-      '/pullRequestCounts?startMonth=2020-02&&endMonth=2021-03'
-    );
+    let res = await request(app).get('/pullRequestCounts?startMonth=2020-02&&endMonth=2021-03');
     expect(res.statusCode).toBe(401);
   });
 
-  // api has rate limit so don't use big date range
   it('should return pull request open and close on that month', async () => {
     let res = await request(app)
-      .get('/pullRequestCounts?startMonth=2020-02&&endMonth=2020-09')
+      .get('/pullRequestCounts?startMonth=2022-04&&endMonth=2022-09')
       .set('Authorization', `${process.env.TOKEN}`);
     expect(res.statusCode).toBe(200);
-    expect(res.body.length).toBe(8);
+    expect(res.body['2022-04'].open).toBe(1);
+    expect(res.body['2022-04'].close).toBe(0);
+    expect(res.body['2022-05'].open).toBe(3);
+    expect(res.body['2022-05'].close).toBe(3);
+    expect(res.body['2022-06'].open).toBe(0);
+    expect(res.body['2022-06'].close).toBe(1);
+    expect(res.body['2022-07'].open).toBe(2);
+    expect(res.body['2022-07'].close).toBe(5);
+    expect(res.body['2022-08'].open).toBe(4);
+    expect(res.body['2022-08'].close).toBe(4);
+    expect(res.body['2022-09'].open).toBe(8);
+    expect(res.body['2022-09'].close).toBe(6);
   });
 
   it('should return unauthorized error', async () => {
