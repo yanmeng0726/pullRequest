@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
 import * as routes from '../routes';
-import calculateLastDayOfMonth from '../services/monthService';
+import { calculateLastDayOfMonth } from '../services/monthService';
 
 let app: express.Application;
 beforeEach(async () => {

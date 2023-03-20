@@ -1,22 +1,30 @@
-import { calculateDate } from '../interfaces/types';
+import { calculateDate, DatePair } from '../interfaces/types';
 
 function calculateDateFunc(date: string): string[] {
-  let [year, month] = date.split('-');
-  const startDate: string = year + '-' + month + '-01';
-
-  // get first day of next month, then minus 1 day to get the last day of the month
-  let nextMonth: string;
-  if (month === '12') {
-    year = (Number(year) + 1).toString();
-    nextMonth = '1';
-  } else {
-    nextMonth = (Number(month) + 1).toString();
-  }
-  let lastDay: Date = new Date(year + '-' + nextMonth);
+  let [currentYear, currentMonth] = date.split('-');
+  const startDate: string = currentYear + '-' + currentMonth + '-01';
+  const nextDate = calculateNextMonthFunc(currentMonth, currentYear);
+  const nextMonth = nextDate.month;
+  const nextYear = nextDate.year;
+  let lastDay: Date = new Date(nextYear + '-' + nextMonth);
   lastDay.setDate(lastDay.getDate() - 1);
 
   return [startDate, lastDay.toISOString().split('T', 1)[0]];
 }
 
+function calculateNextMonthFunc(month: string, year: string): DatePair {
+  if (month !== '12') {
+    month = (Number(month) + 1).toString();
+    if (month.length != 2) {
+      month = '0' + month;
+    }
+  } else {
+    year = (Number(year) + 1).toString();
+    month = '01';
+  }
+  return { month: month, year: year };
+}
+
 const calculateLastDayOfMonth: calculateDate = calculateDateFunc;
-export default calculateLastDayOfMonth;
+const calculateNextMonth = calculateNextMonthFunc;
+export { calculateLastDayOfMonth, calculateNextMonth };

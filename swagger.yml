@@ -12,7 +12,7 @@ tags:
 
 
 paths:
-  /pr:
+  /pullRequestCount:
     get:
       summary: get PR opened number and PR closed number for specific month.
       tags:
@@ -32,6 +32,46 @@ paths:
             application/json:
               schema: 
                 $ref: "#/components/schemas/PResponse"
+
+  /pullRequestCounts:
+    get:
+      summary: get PR Info array for a date range.
+      tags:
+      - Pull Request
+      parameters:
+        - in: query
+          name: startMonth
+          schema:
+            type: string
+          required: true
+          description: start month 
+          example: 2022-01
+        - in: query
+          name: endMonth
+          schema:
+            type: string
+          required: true
+          description: end month 
+          example: 2022-06
+      responses:
+        '200':    # status code
+          description: A PR array response
+          content:
+            application/json:
+              schema: 
+                 type: array
+                 items:
+                  $ref: "#/components/schemas/PResponseObj"
+                 example:
+                  - month: 2022-01
+                    open: 2
+                    close: 7
+                  - month: 2022-02
+                    open: 3
+                    close: 5
+                  - month: 2022-03
+                    open: 4
+                    close: 0
     
 
 
@@ -57,4 +97,22 @@ components:
           example: 2
           title: close
           description: total number of closed PR for certain month
-    
+    PResponseObj:
+      type: object
+      description: A single response from endpoint
+      required:
+      - open
+      - close
+      properties:
+        open:
+          type: number
+          readOnly: true
+          example: 7
+          title: open
+          description: total number of open PR for certain month
+        close:
+          type: number
+          readOnly: true
+          example: 2
+          title: close
+          description: total number of closed PR for certain month
