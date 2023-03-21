@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { Octokit } from '@octokit/rest';
-import { PullResponse} from '../interfaces/types';
+import { PullResponse } from '../interfaces/types';
 import {
   getFirstAndLastDayOfMonth,
   filterByStatus,
@@ -36,7 +36,8 @@ export const register = (app: express.Application) => {
       });
 
       const openPrs = await octokit.rest.search.issuesAndPullRequests({
-        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+created:${startDate}..${endDate}`
+        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+created:${startDate}..${endDate}`,
+        per_page: 100
       });
 
       const closePrs = await octokit.rest.search.issuesAndPullRequests({
@@ -48,7 +49,7 @@ export const register = (app: express.Application) => {
         close: closePrs.data.total_count
       };
 
-       res.status(200).send(result);
+      res.status(200).send(result);
     } catch (error) {
       switch (Number(error.status)) {
         case 401:
@@ -89,15 +90,15 @@ export const register = (app: express.Application) => {
       const endMonthEndDate = getFirstAndLastDayOfMonth(endMonth).lastDay;
 
       initializeResultArr(startMonth, endMonthEndDate, resultObj);
-      
+
       const allOpenPrs = await octokit.rest.search.issuesAndPullRequests({
         q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+created:${startMonthStartDate}..${endMonthEndDate}`,
-        per_page : 100
-      }); 
+        per_page: 100
+      });
 
       const allClosePrs = await octokit.rest.search.issuesAndPullRequests({
         q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+closed:${startMonthStartDate}..${endMonthEndDate}`,
-        per_page : 100
+        per_page: 100
       });
 
       filterByStatus(allOpenPrs, true, resultObj);

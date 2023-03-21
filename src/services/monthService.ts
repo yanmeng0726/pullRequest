@@ -65,8 +65,6 @@ function filterPrsByStatusFunc(prsArr: any, open: boolean, resultObj: any): void
   });
 }
 
-
-
 /**
  * @param {string}currentMonth
  * @param {string}endMonthEndDate
