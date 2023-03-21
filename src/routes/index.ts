@@ -41,7 +41,8 @@ export const register = (app: express.Application) => {
       });
 
       const closePrs = await octokit.rest.search.issuesAndPullRequests({
-        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+closed:${startDate}..${endDate}`
+        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+closed:${startDate}..${endDate}`,
+        per_page: 100
       });
 
       const result: PullResponse = {
