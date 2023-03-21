@@ -9,8 +9,10 @@ The API has endpoint which will return, summarized by month:
     
     2. The total number of pull requests which were closed in that month.
 
-The API also has endpoint to get PR for a date range
+The API also has endpoint to get PR for a date range:
+
       1. The total number of pull requests which were opened in every month.
+      
       2. The total number of pull requests which were closed in every month.
 
 ## Quick Start
