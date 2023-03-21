@@ -48,7 +48,7 @@ export const register = (app: express.Application) => {
         close: closePrs.data.total_count
       };
 
-      res.status(200).send(result);
+       res.status(200).send(result);
     } catch (error) {
       switch (Number(error.status)) {
         case 401:
@@ -89,13 +89,15 @@ export const register = (app: express.Application) => {
       const endMonthEndDate = getFirstAndLastDayOfMonth(endMonth).lastDay;
 
       initializeResultArr(startMonth, endMonthEndDate, resultObj);
-
+      
       const allOpenPrs = await octokit.rest.search.issuesAndPullRequests({
-        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+created:${startMonthStartDate}..${endMonthEndDate}`
-      });
+        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+created:${startMonthStartDate}..${endMonthEndDate}`,
+        per_page : 100
+      }); 
 
       const allClosePrs = await octokit.rest.search.issuesAndPullRequests({
-        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+closed:${startMonthStartDate}..${endMonthEndDate}`
+        q: `type:pr+repo:${process.env.OWNER}/${process.env.REPO}+closed:${startMonthStartDate}..${endMonthEndDate}`,
+        per_page : 100
       });
 
       filterByStatus(allOpenPrs, true, resultObj);
